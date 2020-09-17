@@ -24,12 +24,16 @@
                 <td>{{ product.description }}</td>
             </tr>
             <tr>
-                <th>Image</th>
-                <td>{{ product.image }}</td>
-            </tr>
-            <tr>
                 <th>Price</th>
                 <td>{{ product.price }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ product.image }}</td>
+                <tr>
+                <th>Screenshot</th>
+                <td><img src="{{ vich_uploader_asset(product, 'imageFile') }}" width="500px"></td>
+                <tr>
             </tr>
         </tbody>
     </table>

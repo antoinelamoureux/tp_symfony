@@ -24,7 +24,7 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.category }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.image }}</td>
+                <td><img src="{{ vich_uploader_asset(product, 'imageFile') }}" width="50px"></td>
                 <td>{{ product.price }}</td>
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">show</a>
