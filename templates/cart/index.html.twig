@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!
+{% endblock %}
+
+{% block body %}
+	{% if items | length > 0 %}
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Quantity</th>
+					<th>Name</th>
+					<th>Category</th>
+					<th>Description</th>
+					<th>Image</th>
+					<th>Price</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in items %}
+					<tr>
+						<td>{{ item.quantity }}</td>
+						<td>{{ item.product.name }}</td>
+						<td>{{ item.product.category }}</td>
+						<td>{{ item.product.description }}</td>
+						<td><img src="{{ vich_uploader_asset(item.product, 'imageFile') }}" width="50px"></td>
+						<td>{{ item.product.price * item.quantity  }}</td>
+						<td>{{ item.product.price * item.quantity  }}</td>
+						<td>
+							<a href="{{ path('shoppingcart_remove', {'id': item.product.id}) }}" class="btn btn-danger btn-sm">
+								Supprimer
+							</td>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">No records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="7" class="text-right"><strong>Total: </strong></td>
+					<td>{{ total }}</td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+	{% else %}
+		<p>The shopping bag is empty!</p>
+	{% endif %}
+{% endblock %}

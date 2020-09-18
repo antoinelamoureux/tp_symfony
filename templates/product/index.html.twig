@@ -3,9 +3,9 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product List</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Products list</h1>
     <br><br>
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -29,6 +29,7 @@
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">Show</a>
                     <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>
+                    <a href="{{ path('shoppingcart_add', {'id': product.id}) }}" class="btn btn-success btn-sm">Ajouter</a>
                 </td>
             </tr>
         {% else %}
