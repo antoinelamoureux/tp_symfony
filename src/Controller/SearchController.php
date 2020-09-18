@@ -9,10 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Form\SearchType;
 
-class IndexController extends AbstractController
+class SearchController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/search", name="search")
      */
     public function index(Request $request, ProductRepository $repository, PaginatorInterface $paginator)
     {
@@ -41,8 +41,7 @@ class IndexController extends AbstractController
         10
     );
 
-        return $this->render('index/index.html.twig', [
-            'controller_name' => 'IndexController',
+        return $this->render('search/index.html.twig', [
             'products' => $products,
             'searchForm' => $searchForm->createView()
         ]);

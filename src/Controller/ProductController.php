@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Comment;
 use App\Form\ProductType;
+use App\Form\CommentType;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,12 +51,29 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="product_show", methods={"GET"})
+     * @Route("/{id}", name="product_show", methods={"GET", "POST"})
      */
-    public function show(Product $product): Response
+    public function show(Product $product, Request $request): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUserId($this->getUser());
+            $comment->setProduct($product);
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('product_show', ['id'=>$product->getId()]);
+        }
+
+        $commentsList = $entityManager->getRepository('App:Comment')->findByProduct($product);
         return $this->render('product/show.html.twig', [
             'product' => $product,
+            'form' => $form->createView(),
+            'commentsList' => $commentsList
         ]);
     }
 

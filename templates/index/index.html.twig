@@ -1,19 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Hello IndexController!
+{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/DEV/workspace/symfony/tp_symfony/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/DEV/workspace/symfony/tp_symfony/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<div class="mx-auto text-center" style="width: 500px;">
+		<h1 class="h3 mb-3 font-weight-normal">Hello
+			{{ app.user }}!
+		</h1>
+		<div>Welcome</div>
+		<div>Please select a product</div>
+		<br><br>
+	</div>
+	{{ include('search/index.html.twig') }}
 {% endblock %}

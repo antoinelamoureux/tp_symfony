@@ -1,46 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}Product
+{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+	<h1>Product</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Category</th>
-                <td>{{ product.category }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ product.image }}</td>
-                <tr>
-                <th>Screenshot</th>
-                <td><img src="{{ vich_uploader_asset(product, 'imageFile') }}" width="500px"></td>
-                <tr>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ product.id }}</td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<td>{{ product.name }}</td>
+			</tr>
+			<tr>
+				<th>Category</th>
+				<td>{{ product.category }}</td>
+			</tr>
+			<tr>
+				<th>Description</th>
+				<td>{{ product.description }}</td>
+			</tr>
+			<tr>
+				<th>Price</th>
+				<td>{{ product.price }}</td>
+			</tr>
+			<tr>
+				<th>Image</th>
+				<td>{{ product.image }}</td>
+			</tr>
+			<tr>
+				<th>Screenshot</th>
+				<td><img src="{{ vich_uploader_asset(product, 'imageFile') }}" width="500px"></td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('product_index') }}">back to list</a>
+	<a href="{{ path('product_index') }}">Back to list</a>
+	&nbsp; | &nbsp; 
+	<a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a><br><br>
 
-    <a href="{{ path('product_edit', {'id': product.id}) }}">edit</a>
-
-    {{ include('product/_delete_form.html.twig') }}
+	{{ include('product/_delete_form.html.twig') }}
+	<br><br>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Comments on this product</th>
+				<td>
+					{% for comment in commentsList %}
+						<br>
+						<strong>{{ comment.userId }}</strong><br>
+						{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}<br>
+						{{ comment.commentText}}<hr>
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>Add your comment</th>
+				<td>
+					{{ form_start(form) }}
+					{{ form_widget(form) }}
+					<button class="btn btn-primary">{{ button_label|default('Add comment') }}</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 {% endblock %}
